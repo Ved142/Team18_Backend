@@ -1,57 +1,75 @@
 const express = require("express");
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
+require("./db/connection");
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// <<<<<<< Nitin-Patel
-// app.use(express.json())
-// app.use(express.urlencoded({extended: true}))
+const User = require("./model/userSchema");
+const Admin = require("./model/adminSchema");
 
-// const PORT = process.env.PORT || 4421
+const PORT = 4421;
 
-// //connect to Mongodb
-// const dbURI = 'mongodb+srv://np68175:np68175@cluster0.uzwqfqr.mongodb.net/?retryWrites=true&w=majority';
-
-// mongoose.connect(dbURI)
-// .then(()=>{
-//     app.listen(PORT, () => {
-//       console.log(`Example app listening on port ${PORT}!`);
-//     });
-// })
-// .catch((err)=>{
-//     console.log(err)
-// })
-// =======
-// app.use(express.urlencoded({ extended: false }));
-// app.use(express.json());
-// >>>>>>> master
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Home route!");
 });
 
-app.post("/add-user", (req, res) => {
-  var name = req.body.name;
-  var phoneNo = req.body.phoneNo;
+// to add user into database
+app.post("/add-user", async (req, res) => {
+  const user = {
+    name: req.body.name,
+    phoneNo: req.body.phoneNo,
+  };
 
-  console.log(name, phoneNo);
+  const existingUser = await User.findOne(user);
+  try {
+    if (existingUser) {
+      console.log("User logged in:", existingUser);
+      res.send("User Logged In");
+    } else {
+      // Creating a new User object
+      const newUser = new User(user);
+
+      // Saving the user information
+      const savedUser = await newUser.save();
+      console.log("User registered:", savedUser);
+      res.send("new User Registered");
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send("User was not registered , some error occured");
+  }
 });
 
-app.post("/admin-login", (req, res) => {
-  var email = req.body.email;
-  var password = req.body.password;
+// to login into admin account
+app.post("/admin-login", async (req, res) => {
+  const adminDetails = {
+    email: req.body.email,
+    password: req.body.password,
+  };
+  // console.log(adminDetails);
 
-  console.log(email, password);
+  const founduser = await Admin.findOne({ email: adminDetails.email });
+  // console.log(founduser);
+
+  if (founduser) {
+    if (founduser.password === adminDetails.password) {
+      res.send("authentication successful");
+    } else {
+      res.send("wrong password entered");
+    }
+  } else {
+    res.send("user not found");
+  }
 });
 
 app.get("/about", (req, res) => {
   res.send("this is my about route");
 });
-// <<<<<<< Nitin-Patel
-// =======
 
-
-
-// app.listen(3000, () => {
-//   console.log("Example app listening on port 3000!");
-// });
-// >>>>>>> master
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}!`);
+});
