@@ -27,6 +27,8 @@ const { EventAdd } = require("./Routes/Events/AddEvent");
 const { EventDelete } = require("./Routes/Events/DeleteEvent");
 const { EventDetails } = require("./Routes/Events/DetailEvent");
 const { UserDetailsAdd } = require("./Routes/Users/addUserDetails");
+const { UserDetails } = require("./Routes/Users/GetUserDetails");
+const { ProgramUserDetails } = require("./Routes/Program/getProgramUsers");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -47,6 +49,8 @@ app.use("/add-Event", EventAdd);
 app.use("/delete-Event", EventDelete);
 app.use("/details-Event", EventDetails);
 app.use("/add-userdetails", UserDetailsAdd);
+app.use("/get-userdetails", UserDetails);
+app.use("/program-userdetails", ProgramUserDetails);
 
 app.get("/about", (req, res) => {
   res.send("this is my about route");

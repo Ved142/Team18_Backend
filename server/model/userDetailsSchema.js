@@ -10,16 +10,16 @@ const documentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  type: {
+  // type: {
+  //   type: String,
+  //   required: true,
+  // },
+  dateOfIssue: {
     type: String,
     required: true,
   },
-  dateOfIssue: {
-    type: Date,
-    required: true,
-  },
   dateOfExpiry: {
-    type: Date,
+    type: String,
     required: true,
   },
 });
@@ -27,7 +27,7 @@ const documentSchema = new mongoose.Schema({
 // Schema for Medical History
 const medicalHistorySchema = new mongoose.Schema({
   lastMedicalCheckup: {
-    type: Date,
+    type: String,
     required: true,
   },
   healthIssues: [
@@ -58,7 +58,7 @@ const userDetailSchema = new mongoose.Schema({
     required: true,
   },
   dateOfBirth: {
-    type: Date,
+    type: String,
   },
   numberOfFamilyMembers: {
     type: Number,
@@ -91,7 +91,6 @@ const userDetailSchema = new mongoose.Schema({
   medicalHistory: [medicalHistorySchema],
   employmentStatus: {
     type: String,
-    enum: ["New", "Going Through Training", "Employed", "Elevated"],
   },
   previousEmployer: {
     type: String,

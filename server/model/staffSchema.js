@@ -25,7 +25,7 @@ const Staff_sch = new Schema({
     type: String,
   },
   Experience: {
-    type: Number,
+    type: String,
   },
   Assigned_Community: {
     type: String,
