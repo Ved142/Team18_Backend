@@ -1,37 +1,36 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const program_schema = new Schema({
+const program_schema = new Schema(
+  {
     name: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     description: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     numberOfActivities: {
-        type: Number,
-        required: true,
-    }, 
-    arrayOfActivities:{
-        type: [String],
-        required: true,
+      type: Number,
+      required: true,
     },
     startDate: {
-        type: Date,
-        required: true,
-    },
-    endDate: {
-        type: Date,
-        required: true,
+      type: Date,
     },
     lastUpdated: {
-        type: Date,
-        required: true,
-    }
-}, { timestamps: true });
+      type: Date,
+      required: true,
+      default: Date.now(),
+    },
+    Flag: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  { timestamps: true }
+);
 
-const Program = mongoose.model('Program', program_schema);
+const Program = mongoose.model("Program", program_schema);
 
 module.exports = Program;

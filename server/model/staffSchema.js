@@ -12,7 +12,7 @@ const Staff_sch = new Schema({
     unique: true,
   },
   Date_of_Birth: {
-    type: String,
+    type: Date,
     required: true,
   },
   email: {
@@ -25,7 +25,7 @@ const Staff_sch = new Schema({
     type: String,
   },
   Experience: {
-    type: String,
+    type: Number,
   },
   Assigned_Community: {
     type: String,
@@ -40,8 +40,6 @@ const Staff_sch = new Schema({
     default: Date.now,
   },
 });
-
-//Authorization Ka Dekhna Hoga
 
 const Staff = mongoose.model("Staff", Staff_sch);
 
