@@ -4,13 +4,6 @@ const Staff = require("../../model/programSchema");
 route.post("/", async (req, res) => {
   const StaffDetails = {
     id: req.body.id,
-    name: req.body.name,
-    description: req.body.description,
-    numberOfActivities: req.body.numberOfActivities,
-    startDate: req.body.startDate,
-    endDate: req.body.endDate,
-    lastUpdated: req.body.lastUpdated,
-    Assigned_Community: req.body.Assigned_Community,
   };
   // console.log(adminDetails);
 

@@ -1,23 +1,25 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const program_schema = new Schema(
+const programSchema = new Schema(
   {
-    name: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    numberOfActivities: {
-      type: Number,
-      required: true,
-    },
-    startDate: {
-      type: Date,
-    },
+    name: { type: String, required: true },
+    startDate: { type: Date, required: true },
+    description: { type: String },
+    families: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Family",
+        default: [],
+      },
+    ],
+    activities: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Activity",
+        default: [],
+      },
+    ],
     lastUpdated: {
       type: Date,
       required: true,
@@ -31,6 +33,6 @@ const program_schema = new Schema(
   { timestamps: true }
 );
 
-const Program = mongoose.model("Program", program_schema);
+const Program = mongoose.model("Program", programSchema);
 
 module.exports = Program;

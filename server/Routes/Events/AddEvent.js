@@ -1,24 +1,24 @@
 const route = require("express").Router();
-const Staff = require("../../model/EventSchema");
+const Event = require("../../model/EventSchema");
 
 // to login into admin account
 route.post("/", async (req, res) => {
-  const StaffDetails = {
-    eventId: req.body.eventId,
+  const EventDetails = {
+    // eventId: req.body.eventId,
     nameOfActivity: req.body.nameOfActivity,
-    startTime: req.body.startTime,
-    endTime: req.body.endTime,
+    startDate: req.body.startDate,
+    endDate: req.body.endDate,
     venue: req.body.venue,
     theme: req.body.theme,
-    actualNumber: req.body.actualNumber,
+    // actualNumber: req.body.actualNumber,
     capacity: req.body.capacity,
     invitedCommunity: req.body.invitedCommunity,
     assignedStaff: req.body.assignedStaff,
   };
   // console.log(adminDetails);
 
-  const ExistingCommunity = await Staff.findOne({
-    eventId: StaffDetails.eventId,
+  const ExistingCommunity = await Event.findOne({
+    eventId: EventDetails.eventId,
   });
   try {
     if (ExistingCommunity) {
@@ -29,16 +29,16 @@ route.post("/", async (req, res) => {
         console.log("Event Created");
         res.send("new Event Created");
       } else {
-        console.log(`Event With this ${StaffDetails.eventId} Already Existes`);
-        res.send(`Event With this ${StaffDetails.eventId} Already Existes`);
+        console.log(`Event With this ${EventDetails.eventId} Already Existes`);
+        res.send(`Event With this ${EventDetails.eventId} Already Existes`);
       }
     } else {
       // Creating a new User object
 
-      const newStaffMember = new Staff(StaffDetails);
+      const newEventMember = new Event(EventDetails);
 
       // Saving the user information
-      const savedStaff = await newStaffMember.save();
+      const savedEvent = await newEventMember.save();
       console.log("Event Added");
       res.send("new Event Added");
     }

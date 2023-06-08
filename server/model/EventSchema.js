@@ -1,54 +1,57 @@
-const { Timestamp } = require('bson');
-const mongoose = require('mongoose');
+const { Timestamp } = require("bson");
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const activity_schema = new Schema({
+const activity_schema = new Schema(
+  {
     eventId: {
-        type: Number,
-        primaryKey: true,
-        require: true,
+      type: String,
+      primaryKey: true,
+      require: true,
     },
     nameOfActivity: {
-        type: String,
-        require: true,
+      type: String,
+      require: true,
     },
-    startTime: {
-        type: Date,
-        require: true,
+    startDate: {
+      type: Date,
+      require: true,
     },
-    endTime: {
-        type: Date,
-        require: true,
+    endDate: {
+      type: Date,
+      require: true,
     },
     venue: {
-        type: String,
-        require: true,
+      type: String,
+      require: true,
     },
     theme: {
-        type: String,
-        require: true,
+      type: String,
+      require: true,
     },
-    actualNumber: {
-        type: Number,
-        require: true,
-    },
+    // actualNumber: {
+    //     type: Number,
+    //     require: true,
+    // },
     capacity: {
-        type: Number,
-        require: true,
+      type: Number,
+      require: true,
     },
     invitedCommunity: {
-        type: [String],
+      type: [String],
     },
     assignedStaff: {
-        type: [String],
+      type: [String],
     },
     Flag: {
-        type: Boolean,
-        default: true,
-    }
-}, { timestamps: true });
+      type: Boolean,
+      default: true,
+    },
+  },
+  { timestamps: true }
+);
 
-const Activity = mongoose.model('Activity', activity_schema );
+const Activity = mongoose.model("Activity", activity_schema);
 
 module.exports = Activity;
 
@@ -71,7 +74,6 @@ module.exports = Activity;
 // Target Audience - ( Just an Idea, Share It to the peoples )
 // Attendees Registered
 // Confirmation for the event
-
 
 // 	During the Event -
 // Track who come to event at the event

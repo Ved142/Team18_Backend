@@ -29,6 +29,10 @@ const { EventDetails } = require("./Routes/Events/DetailEvent");
 const { UserDetailsAdd } = require("./Routes/Users/addUserDetails");
 const { UserDetails } = require("./Routes/Users/GetUserDetails");
 const { ProgramUserDetails } = require("./Routes/Program/getProgramUsers");
+const { uniqueCommunities } = require("./Routes/Program/getUniqueProgram");
+const { uniqueStaff } = require("./Routes/Staff/getUniqueStaff");
+const { addFamilyDetails } = require("./Routes/Family/addFamilyDetails");
+const { getAllFamily } = require("./Routes/Family/getAllFamily");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -51,6 +55,11 @@ app.use("/details-Event", EventDetails);
 app.use("/add-userdetails", UserDetailsAdd);
 app.use("/get-userdetails", UserDetails);
 app.use("/program-userdetails", ProgramUserDetails);
+app.use("/unique-communities", uniqueCommunities);
+app.use("/unique-staff", uniqueStaff);
+
+app.use("/get-communityfamily", getAllFamily);
+app.use("/add-familydetails", addFamilyDetails);
 
 app.get("/about", (req, res) => {
   res.send("this is my about route");
