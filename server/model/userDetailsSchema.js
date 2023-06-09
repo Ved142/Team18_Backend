@@ -60,21 +60,15 @@ const userDetailSchema = new mongoose.Schema({
   dateOfBirth: {
     type: String,
   },
-  numberOfFamilyMembers: {
+  age: {
     type: Number,
+    min: 0,
   },
-  familyMembersAges: [
-    {
-      type: Number,
-      min: 0,
-    },
-  ],
+
   income: {
     type: String,
   },
-  numberOfActivitiesAttended: {
-    type: Number,
-  },
+
   education: {
     type: String,
   },
@@ -92,9 +86,7 @@ const userDetailSchema = new mongoose.Schema({
   employmentStatus: {
     type: String,
   },
-  previousEmployer: {
-    type: String,
-  },
+
   createDate: {
     type: Date,
     default: Date.now,
