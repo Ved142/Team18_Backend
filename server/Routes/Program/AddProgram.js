@@ -3,11 +3,12 @@ const Program = require("../../model/programSchema");
 
 route.post("/", async (req, res) => {
   try {
-    const { name, startDate, description } = req.body;
+    const { name, startDate, description, MPI_Score } = req.body;
     const program = new Program({
       name,
       startDate,
       description,
+      MPI_Score,
     });
 
     const newProgram = await program.save();

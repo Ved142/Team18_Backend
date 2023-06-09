@@ -29,6 +29,11 @@ const programSchema = new Schema(
       type: Boolean,
       default: true,
     },
+    MPI_Score: {
+      type: Number,
+      required: true,
+      default: 1,
+    },
   },
   { timestamps: true }
 );

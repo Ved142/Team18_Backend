@@ -33,6 +33,7 @@ const { uniqueCommunities } = require("./Routes/Program/getUniqueProgram");
 const { uniqueStaff } = require("./Routes/Staff/getUniqueStaff");
 const { addFamilyDetails } = require("./Routes/Family/addFamilyDetails");
 const { getAllFamily } = require("./Routes/Family/getAllFamily");
+const { searchCommunity } = require("./Routes/Program/searchCommunity");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -54,9 +55,12 @@ app.use("/delete-Event", EventDelete);
 app.use("/details-Event", EventDetails);
 app.use("/add-userdetails", UserDetailsAdd);
 app.use("/get-userdetails", UserDetails);
+
 app.use("/program-userdetails", ProgramUserDetails);
+
 app.use("/unique-communities", uniqueCommunities);
 app.use("/unique-staff", uniqueStaff);
+app.use("/search-Community", searchCommunity);
 
 app.use("/get-communityfamily", getAllFamily);
 app.use("/add-familydetails", addFamilyDetails);
