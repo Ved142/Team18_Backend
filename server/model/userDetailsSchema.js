@@ -27,7 +27,7 @@ const documentSchema = new mongoose.Schema({
 // Schema for Medical History
 const medicalHistorySchema = new mongoose.Schema({
   lastMedicalCheckup: {
-    type: String,
+    type: Date,
     required: true,
   },
   healthIssues: [
@@ -39,6 +39,10 @@ const medicalHistorySchema = new mongoose.Schema({
 
 // Schema for User
 const userDetailSchema = new mongoose.Schema({
+  userId: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -46,9 +50,13 @@ const userDetailSchema = new mongoose.Schema({
   mobNo: {
     type: String,
   },
+  adharCheck: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
   adharCard: {
     type: String,
-    required: true,
   },
   gender: {
     type: String,
@@ -71,6 +79,11 @@ const userDetailSchema = new mongoose.Schema({
 
   education: {
     type: String,
+  },
+  MPIscore: {
+    type: Number,
+    min: 0,
+    default: 1,
   },
   helpNeeded: [
     {

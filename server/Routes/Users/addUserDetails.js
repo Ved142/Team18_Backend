@@ -6,12 +6,11 @@ route.post("/", async (req, res) => {
     const userData = req.body;
 
     const existingUser = await UserDetail.findOne({
-      adharCard: userData.adharCard,
+      userId: userData.userId,
     });
 
     if (existingUser) {
-      existingUser.name = userData.name;
-      existingUser.mobNo = userData.mobNo;
+      existingUser = userData;
 
       await existingUser.save();
 
