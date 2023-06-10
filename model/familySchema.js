@@ -2,6 +2,18 @@ const { Timestamp } = require("bson");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const mpiscore_schema = new Schema({
+  date: {
+    type: Date,
+    required: true,
+  },
+  score: {
+    type: Number,
+    required: true,
+    default: 1,
+  },
+});
+
 const family_schema = new Schema({
   familyId: {
     type: String,
@@ -35,8 +47,8 @@ const family_schema = new Schema({
     default: false,
   },
   MPIscore: {
-    type: Number,
-    defaultValue: 1,
+    type: [mpiscore_schema],
+    default: [],
   },
   members: {
     type: [Schema.Types.ObjectId],

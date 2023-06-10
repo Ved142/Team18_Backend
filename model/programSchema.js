@@ -1,6 +1,18 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const mpiscore_schema = new Schema({
+  date: {
+    type: Date,
+    required: true,
+  },
+  score: {
+    type: Number,
+    required: true,
+    default: 1,
+  },
+});
+
 const programSchema = new Schema(
   {
     name: { type: String, required: true },
@@ -20,6 +32,10 @@ const programSchema = new Schema(
         default: [],
       },
     ],
+    MPIscore: {
+      type: [mpiscore_schema],
+      default: [],
+    },
     lastUpdated: {
       type: Date,
       required: true,
