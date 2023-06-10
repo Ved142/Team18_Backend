@@ -42,9 +42,23 @@ route.post("/Registration", async(req, res) => {
         _id: Event_detail.EventId
       })
       if(Event_Data) {
-        Event_Data.Register.push(Event_detail.adharCard);
-        saved_data = await Event_Data.save();
-        res.send("Success");
+        const arr = Event_Data.invitedCommunity
+        const ProgramData = await Program.find({_id: { $in: arr}});
+        let flag = 0;
+        for (let index = 0; index < ProgramData.length; index++) {
+          const element = ProgramData[index];
+          if(element.name == User_Data.community) {
+            flag = 1;
+          }
+        }
+        if(flag == 1) {
+           Event_Data.Register.push(Event_detail.adharCard);
+          saved_data = await Event_Data.save();
+          res.send("Sucess")
+        }
+        else {
+          res.send("You Are Not from the allowed community");
+        }
       }
       else {
         res.send('Error');
@@ -113,7 +127,7 @@ route.post("/staff", async (req, res) => {
   }
 });
 
-route.post("/:id", async (req, res) => {
+route.post("/id", async (req, res) => {
   // Retrieve all staff data
   const Event_detail = {
     EventId: req.body.Event_id
@@ -132,6 +146,39 @@ route.post("/:id", async (req, res) => {
     res.status(500).json({ error: "Failed to retrieve Event data" });
   }
 });
+
+route.post("/community", async (req, res) => {
+  // Retrieve all staff data
+  const Event_detail = {
+    EventId: req.body.Event_id
+  };
+  try {
+    const EventData = await Event.findOne({_id: Event_detail.EventId }); // Retrieve all staff data
+    if(EventData) {
+      const arr = EventData.invitedCommunity
+      const ProgramData = await Program.find({_id: { $in: arr}});
+      if(ProgramData) {
+        const arr2 = [];
+        for (let index = 0; index < ProgramData.length; index++) {
+          const element = ProgramData[index];
+          arr2.push(element.name);
+        }
+        res.send(arr2)
+      }
+      else{
+        res.send("Program Not, Found")
+      }
+    }
+    else {
+      res.send("Data Not Found");
+    }
+  } catch (error) {
+    // Handle any errors that occur during the retrieval process
+    res.status(500).json({ error: "Failed to retrieve Event data" });
+  }
+});
+
+
 
 exports = module.exports = {
   EventDetails: route,
