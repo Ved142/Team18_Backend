@@ -26,6 +26,7 @@ const { CommunityDetails } = require("./Routes/Program/getProgramDetails");
 const { EventAdd } = require("./Routes/Events/AddEvent");
 const { EventDelete } = require("./Routes/Events/DeleteEvent");
 const { EventDetails } = require("./Routes/Events/DetailEvent");
+const { EventDetailsInactive } = require("./Routes/Events/DetailEventInactive");
 const { UserDetailsAdd } = require("./Routes/Users/addUserDetails");
 const { UserDetails } = require("./Routes/Users/GetUserDetails");
 const { ProgramUserDetails } = require("./Routes/Program/getProgramUsers");
@@ -53,6 +54,7 @@ app.use("/details-Community", CommunityDetails);
 app.use("/add-Event", EventAdd);
 app.use("/delete-Event", EventDelete);
 app.use("/details-Event", EventDetails);
+app.use("/details-Event-inactive", EventDetailsInactive);
 app.use("/add-userdetails", UserDetailsAdd);
 app.use("/get-userdetails", UserDetails);
 
