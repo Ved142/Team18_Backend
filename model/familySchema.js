@@ -5,11 +5,9 @@ const Schema = mongoose.Schema;
 const mpiscore_schema = new Schema({
   date: {
     type: Date,
-    required: true,
   },
   score: {
     type: Number,
-    required: true,
     default: 1,
   },
 });

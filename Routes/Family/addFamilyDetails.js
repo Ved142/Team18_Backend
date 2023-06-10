@@ -20,35 +20,42 @@ route.post("/", async (req, res) => {
       assets,
     } = req.body;
 
-    const newFamily = new Family({
-      familyId,
-      community,
-      MPIscore,
-      members,
-      cookingFuel,
-      sanitation,
-      drinkingWater,
-      electricity,
-      house,
-      assets,
-    });
+    const existingFamily = await Family.findOne({ familyId });
 
-    console.log(familyId, community);
-    console.log(typeof familyId);
+    if (existingFamily) {
+      // Update the existing family
+      existingFamily.cookingFuel = cookingFuel;
+      existingFamily.sanitation = sanitation;
+      existingFamily.drinkingWater = drinkingWater;
+      existingFamily.electricity = electricity;
+      existingFamily.house = house;
+      existingFamily.assets = assets;
 
-    const savedFamily = await newFamily.save();
-    // await Community.findOneAndUpdate(
-    //   { name: community },
-    //   { $addToSet: { families: `${familyId}` } }, // Add the new familyId to the array if it's not already there
-    //   { new: true }
-    // );
+      const updatedFamily = await existingFamily.save();
+      res.json(updatedFamily);
+    } else {
+      // Create a new family
+      const newFamily = new Family({
+        familyId,
+        community,
+        MPIscore,
+        members,
+        cookingFuel,
+        sanitation,
+        drinkingWater,
+        electricity,
+        house,
+        assets,
+      });
 
-    res.json(savedFamily);
+      const savedFamily = await newFamily.save();
+      res.json(savedFamily);
+    }
   } catch (error) {
     console.log(error);
     res
       .status(500)
-      .json({ error: "An error occurred while adding the family." });
+      .json({ error: "An error occurred while adding/updating the family." });
   }
 });
 
