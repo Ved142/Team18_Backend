@@ -2,7 +2,6 @@ const route = require("express").Router();
 const Family = require("../../model/familySchema");
 const Community = require("../../model/programSchema");
 const mongoose = require("mongoose");
-const { ObjectId } = mongoose.Types;
 
 // POST /family/add
 route.post("/", async (req, res) => {

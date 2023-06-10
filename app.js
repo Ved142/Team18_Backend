@@ -33,6 +33,7 @@ const { uniqueCommunities } = require("./Routes/Program/getUniqueProgram");
 const { uniqueStaff } = require("./Routes/Staff/getUniqueStaff");
 const { addFamilyDetails } = require("./Routes/Family/addFamilyDetails");
 const { getAllFamily } = require("./Routes/Family/getAllFamily");
+const { adminadd } = require("./Routes/Admin/adminadd");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -60,6 +61,7 @@ app.use("/unique-staff", uniqueStaff);
 
 app.use("/get-communityfamily", getAllFamily);
 app.use("/add-familydetails", addFamilyDetails);
+app.use("/add-admin", adminadd);
 
 app.get("/about", (req, res) => {
   res.send("this is my about route");

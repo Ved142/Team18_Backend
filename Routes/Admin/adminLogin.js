@@ -1,5 +1,6 @@
 const route = require("express").Router();
 const Admin = require("../../model/adminSchema");
+const bcrypt = require("bcryptjs");
 
 // to login into admin account
 route.post("/", async (req, res) => {
@@ -13,11 +14,21 @@ route.post("/", async (req, res) => {
   // console.log(founduser);
 
   if (founduser) {
-    if (founduser.password === adminDetails.password) {
-      res.send("authentication successful");
-    } else {
-      res.status(400).send("wrong password entered");
-    }
+    bcrypt.compare(
+      adminDetails.password,
+      founduser.password,
+      function (err, isMatch) {
+        if (err) {
+          throw err;
+        } else if (isMatch) {
+          console.log("authentication successful");
+          res.send("authentication successful");
+        } else {
+          console.log("wrong password entered");
+          res.send("wrong password entered");
+        }
+      }
+    );
   } else {
     res.status(400).send("user not found");
   }
