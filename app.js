@@ -35,6 +35,8 @@ const { addFamilyDetails } = require("./Routes/Family/addFamilyDetails");
 const { getAllFamily } = require("./Routes/Family/getAllFamily");
 const { adminadd } = require("./Routes/Admin/adminadd");
 
+const { EventDetailsInactive } = require("./Routes/Events/DetailEventInactive");
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -58,6 +60,7 @@ app.use("/get-userdetails", UserDetails);
 app.use("/program-userdetails", ProgramUserDetails);
 app.use("/unique-communities", uniqueCommunities);
 app.use("/unique-staff", uniqueStaff);
+app.use("/details-Event-inactive", EventDetailsInactive);
 
 app.use("/get-communityfamily", getAllFamily);
 app.use("/add-familydetails", addFamilyDetails);
