@@ -1,6 +1,7 @@
 const route = require("express").Router();
 const moment = require("moment");
 const Event = require("../../model/EventSchema");
+const Program = require("../../model/programSchema");
 
 // to login into admin account
 route.post("/", async (req, res) => {
@@ -34,6 +35,19 @@ route.post("/", async (req, res) => {
   else {
     const newEventMember = new Event(EventDetails);
     try{
+      const arr = EventDetails.invitedCommunity;
+      const ProgramData = await Program.find({
+        _id: {
+          $in: arr,
+        }
+      })
+
+      for (let index = 0; index < ProgramData.length; index++) {
+        const element = ProgramData[index];
+        element.activities.push(newEventMember._id);
+        await element.save()
+      }
+
       const savedEvent = await newEventMember.save();
       console.log("Event Added");
       res.send("new Event Added");
